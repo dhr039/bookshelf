@@ -17,98 +17,98 @@ import {Modal, ModalContents, ModalOpenButton} from './components/modal'
 import {Logo} from './components/logo'
 
 function LoginForm({onSubmit, submitButton}) {
-  function handleSubmit(event) {
-    event.preventDefault()
-    const {username, password} = event.target.elements
+    function handleSubmit(event) {
+        event.preventDefault()
+        const {username, password} = event.target.elements
 
-    onSubmit({
-      username: username.value,
-      password: password.value,
-    })
-  }
+        onSubmit({
+            username: username.value,
+            password: password.value,
+        })
+    }
 
-  // 🐨 this <form> could use a css prop
-  // 🎨
-  //    display: 'flex',
-  //    flexDirection: 'column',
-  //    alignItems: 'stretch',
-  //    '> div': {
-  //      margin: '10px auto',
-  //      width: '100%',
-  //      maxWidth: '300px',
-  //    },
-  return (
-    <form onSubmit={handleSubmit}>
-      {/* 🐨 these div elements could be a FormGroup you create in components/lib */}
-      {/* 🐨 and the inputs elements could be custom styled Input components too */}
-      <div>
-        <label htmlFor="username">Username</label>
-        <input id="username" />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input id="password" type="password" />
-      </div>
-      <div>{React.cloneElement(submitButton, {type: 'submit'})}</div>
-    </form>
-  )
+    // 🐨 this <form> could use a css prop
+    // 🎨
+    //    display: 'flex',
+    //    flexDirection: 'column',
+    //    alignItems: 'stretch',
+    //    '> div': {
+    //      margin: '10px auto',
+    //      width: '100%',
+    //      maxWidth: '300px',
+    //    },
+    return (
+        <form onSubmit={handleSubmit}>
+            {/* 🐨 these div elements could be a FormGroup you create in components/lib */}
+            {/* 🐨 and the inputs elements could be custom styled Input components too */}
+            <div>
+                <label htmlFor="username">Username</label>
+                <input id="username"/>
+            </div>
+            <div>
+                <label htmlFor="password">Password</label>
+                <input id="password" type="password"/>
+            </div>
+            <div>{React.cloneElement(submitButton, {type: 'submit'})}</div>
+        </form>
+    )
 }
 
 function App() {
-  function login(formData) {
-    console.log('login', formData)
-  }
+    function login(formData) {
+        console.log('login', formData)
+    }
 
-  function register(formData) {
-    console.log('register', formData)
-  }
+    function register(formData) {
+        console.log('register', formData)
+    }
 
-  // 🐨 this div could use a css prop to get its children rendered nicer
-  // 🎨
-  //    display: 'flex',
-  //    flexDirection: 'column',
-  //    alignItems: 'center',
-  //    justifyContent: 'center',
-  //    width: '100%',
-  //    height: '100vh',
-  return (
-    <div>
-      <Logo width="80" height="80" />
-      <h1>Bookshelf</h1>
-      {/*
+    // 🐨 this div could use a css prop to get its children rendered nicer
+    // 🎨
+    //    display: 'flex',
+    //    flexDirection: 'column',
+    //    alignItems: 'center',
+    //    justifyContent: 'center',
+    //    width: '100%',
+    //    height: '100vh',
+    return (
+        <div>
+            <Logo width="80" height="80"/>
+            <h1>Bookshelf</h1>
+            {/*
         🐨 the two buttons are too close, let's space them out
           🎨 apply this to the div right below
             display: 'grid',
             gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
             gridGap: '0.75rem',
       */}
-      {/* 🐨 And make sure to use the new Button component for all these buttons */}
-      <div>
-        <Modal>
-          <ModalOpenButton>
-            <button variant="primary">Login</button>
-          </ModalOpenButton>
-          <ModalContents aria-label="Login form" title="Login">
-            <LoginForm
-              onSubmit={login}
-              submitButton={<button variant="primary">Login</button>}
-            />
-          </ModalContents>
-        </Modal>
-        <Modal>
-          <ModalOpenButton>
-            <button variant="secondary">Register</button>
-          </ModalOpenButton>
-          <ModalContents aria-label="Registration form" title="Register">
-            <LoginForm
-              onSubmit={register}
-              submitButton={<button variant="secondary">Register</button>}
-            />
-          </ModalContents>
-        </Modal>
-      </div>
-    </div>
-  )
+            {/* 🐨 And make sure to use the new Button component for all these buttons */}
+            <div>
+                <Modal>
+                    <ModalOpenButton>
+                        <button variant="primary">Login</button>
+                    </ModalOpenButton>
+                    <ModalContents aria-label="Login form" title="Login">
+                        <LoginForm
+                            onSubmit={login}
+                            submitButton={<button variant="primary">Login</button>}
+                        />
+                    </ModalContents>
+                </Modal>
+                <Modal>
+                    <ModalOpenButton>
+                        <button variant="secondary">Register</button>
+                    </ModalOpenButton>
+                    <ModalContents aria-label="Registration form" title="Register">
+                        <LoginForm
+                            onSubmit={register}
+                            submitButton={<button variant="secondary">Register</button>}
+                        />
+                    </ModalContents>
+                </Modal>
+            </div>
+        </div>
+    )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App/>, document.getElementById('root'))
