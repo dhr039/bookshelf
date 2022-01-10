@@ -10,7 +10,7 @@ function LoginForm({onSubmit, btnText = 'Login'}) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        /*thanks to the ids we have these, they are the DOM nodes that have these values ('username' and 'password')*/
+        /*thanks to the ids we have these, they are the DOM nodes that have these values*/
         const {usernameId, passwordId} = event.target.elements
 
         onSubmit({
@@ -30,7 +30,7 @@ function LoginForm({onSubmit, btnText = 'Login'}) {
         <form onSubmit={handleSubmit}>
             <div>
                 <div>
-                    <label htmlFor="usernameInput">Username:</label>
+                    <label htmlFor="usernameId">Username:</label>
                     <input
                         id="usernameId"
                         type="text"
@@ -39,7 +39,7 @@ function LoginForm({onSubmit, btnText = 'Login'}) {
                     />
                 </div>
                 <div>
-                    <label htmlFor="usernameInput">Password:</label>
+                    <label htmlFor="passwordId">Password:</label>
                     <input
                         id="passwordId"
                         type="password"
