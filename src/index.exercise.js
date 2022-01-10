@@ -12,7 +12,7 @@ import '@reach/dialog/styles.css'
 import ReactDOM from 'react-dom'
 // 🐨 you'll need to import some new components that you'll be creating
 // in this file
-// import {Button, Input, FormGroup} from './components/lib'
+import {Button, Input, FormGroup} from './components/lib'
 import {Modal, ModalContents, ModalOpenButton} from './components/modal'
 import {Logo} from './components/logo'
 
@@ -86,7 +86,7 @@ function App() {
             }}>
                 <Modal>
                     <ModalOpenButton>
-                        <button variant="primary">Login</button>
+                        <Button>Login</Button>
                     </ModalOpenButton>
                     <ModalContents aria-label="Login form" title="Login">
                         <LoginForm
@@ -97,7 +97,7 @@ function App() {
                 </Modal>
                 <Modal>
                     <ModalOpenButton>
-                        <button variant="secondary">Register</button>
+                        <Button variant="secondary">Register</Button>
                     </ModalOpenButton>
                     <ModalContents aria-label="Registration form" title="Register">
                         <LoginForm
