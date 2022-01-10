@@ -8,12 +8,12 @@ import VisuallyHidden from "@reach/visually-hidden";
 function ModalCustomDialog({modalOpen = 'none', onClose}) {
     if (modalOpen === 'none') {
         return (
-            <Dialog isOpen={false}>
+            <Dialog aria-label="empty" isOpen={false}>
             </Dialog>
         )
     } else if (modalOpen === 'login') {
         return (
-            <Dialog isOpen={true} onDismiss={onClose}>
+            <Dialog aria-label="Login form" isOpen={true} onDismiss={onClose}>
                 <button className="close-button" onClick={onClose}><VisuallyHidden>Close</VisuallyHidden> <span
                     aria-hidden>×</span></button>
                 <h3>LOGIN</h3>
@@ -21,7 +21,7 @@ function ModalCustomDialog({modalOpen = 'none', onClose}) {
         )
     } else if (modalOpen === 'register') {
         return (
-            <Dialog isOpen={true} onDismiss={onClose}>
+            <Dialog aria-label="Registration form" isOpen={true} onDismiss={onClose}>
                 <button className="close-button" onClick={onClose}><VisuallyHidden>Close</VisuallyHidden> <span
                     aria-hidden>×</span></button>
                 <h3>REGISTER</h3>
