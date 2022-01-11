@@ -42,7 +42,7 @@ function LoginForm({onSubmit, submitButton}) {
                 <label htmlFor="password">Password</label>
                 <Input id="password" type="password"/>
             </FormGroup>
-            <div>{React.cloneElement(submitButton, {type: 'submit'})}</div>
+            <div>{React.cloneElement(submitButton, {type: 'submit'})}  <MySpinner aria-label='loading'/> </div>
         </form>
     )
 }
@@ -97,9 +97,6 @@ function App() {
                         />
                     </ModalContents>
                 </Modal>
-            </div>
-            <div>
-                <MySpinner/>
             </div>
         </div>
     )

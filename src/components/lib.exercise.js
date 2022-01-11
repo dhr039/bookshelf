@@ -5,19 +5,10 @@
  * */
 import styled from '@emotion/styled/macro'
 import {Dialog as ReachDialog} from '@reach/dialog'
-import React from 'react';
 import * as colors from 'styles/colors'
 import * as mq from 'styles/media-queries'
 import {FaSpinner} from 'react-icons/fa'
 import {keyframes} from '@emotion/core'
-
-// 💰 In my final version, I style padding, border, lineHeight, and borderRadius
-//    the same for both types, and then change the background and color based
-//    on the given variant.
-// 🦉 remember, you don't have to make things look perfect or just like they
-// do in the final example. Just make sure you understand how to create the
-// styled component and accept a prop to change which styles apply.
-
 
 /**
  * you can have any number of arguments for the styled.button(,,,,,)
@@ -85,6 +76,7 @@ const Dialog = styled(ReachDialog)({
  * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations
  * https://www.w3schools.com/howto/howto_css_loader.asp
  * https://emotion.sh/docs/keyframes
+ * https://react-icons.github.io/react-icons/
  * */
 const spin = keyframes({
     '0%': {transform: 'rotate(0deg)'},
@@ -92,7 +84,12 @@ const spin = keyframes({
 })
 
 const MySpinner = styled(FaSpinner)({
-    animation: `${spin} 2s linear infinite`,
+    animation: `${spin} 1s linear infinite`,
 })
+/*if someone does not provide an aria-label, then this is what the value should be:*/
+MySpinner.defaultProps = {
+    'aria-label': 'loading',
+}
+
 
 export {CircleButton, Dialog, Button, Input, FormGroup, MySpinner}
