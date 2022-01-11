@@ -6,6 +6,8 @@
 import styled from '@emotion/styled/macro'
 import {Dialog as ReachDialog} from '@reach/dialog'
 import React from 'react';
+import * as colors from 'styles/colors'
+import * as mq from 'styles/media-queries'
 
 // 💰 In my final version, I style padding, border, lineHeight, and borderRadius
 //    the same for both types, and then change the background and color based
@@ -27,21 +29,21 @@ const Button = styled.button({
 }, ({variant = 'primary'}) => { //set 'primary' as default
     if (variant === 'primary') {
         return {
-            background: '#3f51b5',
-            color: 'white',
+            background: colors.indigo,
+            color: colors.base,
         }
     } else if (variant === 'secondary') {
         return {
-            background: '#f1f2f7',
-            color: '#434449',
+            background: colors.gray,
+            color: colors.text,
         }
     }
 }, (props) => {console.log('another argument and just testing props:', props)})
 
 const Input = styled.input({
     borderRadius: '3px',
-    border: '1px solid #f1f1f4',
-    background: '#f1f2f7',
+    border: `1px solid ${colors.gray10}`,
+    background: colors.gray,
     padding: '8px 12px',
 })
 
@@ -60,7 +62,7 @@ const CircleButton = styled.button({
     alignItems: 'center',
     justifyContent: 'center',
     background: 'white',
-    color: '#434449',
+    color: `${colors.text}`,
     border: `1px solid #f1f1f4`,
     cursor: 'pointer',
 })
@@ -71,7 +73,7 @@ const Dialog = styled(ReachDialog)({
     paddingBottom: '3.5em',
     boxShadow: '0 10px 30px -5px rgba(0, 0, 0, 0.2)',
     margin: '20vh auto',
-    '@media (max-width: 991px)': {
+    [mq.small]: {
         width: '100%',
         margin: '10vh auto',
     },
