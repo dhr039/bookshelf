@@ -1,4 +1,9 @@
-import styled from '@emotion/styled'
+// import styled from '@emotion/styled'
+/**
+ * The css prop gets the label for free, but to get the label applied to styled components,
+ * you need to use a special version of the styled package called a "macro":
+ * */
+import styled from '@emotion/styled/macro'
 import {Dialog as ReachDialog} from '@reach/dialog'
 import React from 'react';
 
