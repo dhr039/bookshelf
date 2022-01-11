@@ -8,6 +8,8 @@ import {Dialog as ReachDialog} from '@reach/dialog'
 import React from 'react';
 import * as colors from 'styles/colors'
 import * as mq from 'styles/media-queries'
+import {FaSpinner} from 'react-icons/fa'
+import {keyframes} from '@emotion/core'
 
 // 💰 In my final version, I style padding, border, lineHeight, and borderRadius
 //    the same for both types, and then change the background and color based
@@ -79,4 +81,18 @@ const Dialog = styled(ReachDialog)({
     },
 })
 
-export {CircleButton, Dialog, Button, Input, FormGroup}
+/**
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations
+ * https://www.w3schools.com/howto/howto_css_loader.asp
+ * https://emotion.sh/docs/keyframes
+ * */
+const spin = keyframes({
+    '0%': {transform: 'rotate(0deg)'},
+    '100%': {transform: 'rotate(360deg)'},
+})
+
+const MySpinner = styled(FaSpinner)({
+    animation: `${spin} 2s linear infinite`,
+})
+
+export {CircleButton, Dialog, Button, Input, FormGroup, MySpinner}

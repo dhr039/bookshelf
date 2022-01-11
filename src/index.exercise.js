@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap-reboot.css'
 // but CSS-in-JS is generally easier to maintain.
 import '@reach/dialog/styles.css'
 import ReactDOM from 'react-dom'
-import {Button, Input, FormGroup} from './components/lib'
+import {Button, Input, FormGroup, MySpinner} from './components/lib'
 import {Modal, ModalContents, ModalOpenButton} from './components/modal'
 import {Logo} from './components/logo'
 
@@ -97,6 +97,9 @@ function App() {
                         />
                     </ModalContents>
                 </Modal>
+            </div>
+            <div>
+                <MySpinner/>
             </div>
         </div>
     )
