@@ -9,8 +9,6 @@ import {BookRow} from './components/book-row'
 import * as React from 'react'
 import {client} from './utils/api-client'
 
-const endpoint = `${process.env.REACT_APP_API_URL}/books?query=`
-
 function DiscoverBooksScreen() {
     const [state, setState] = React.useState({
         status: 'idle',
@@ -22,16 +20,15 @@ function DiscoverBooksScreen() {
     const [queried, setQueried] = React.useState(false)
 
     React.useEffect(() => {
-        if (queried) {
-            setQueried(false)
-            console.log('query changed, will make the API call here...', state)
-            client(endpoint + query).then(data => {
-                setState({...state, status: 'success', data: data})
-            })
-        } else {
-            console.log('queried is false so will do nothing')
+        if (!queried) {
+            return
         }
-    }, [query])
+        setState({...state, status: 'loading'})
+        setQueried(false)
+        client(query).then(data => {
+            setState({...state, status: 'success', data: data})
+        })
+    }, [queried, query])
 
     const isLoading = status === 'loading'
     const isSuccess = status === 'success'
