@@ -7,46 +7,27 @@ import {FaSearch} from 'react-icons/fa'
 import {Input, BookListUL, Spinner} from './components/lib'
 import {BookRow} from './components/book-row'
 import * as React from 'react'
+import {client} from './utils/api-client'
 
-// 🐨 import the client from './utils/api-client'
+const endpoint = `${process.env.REACT_APP_API_URL}/books?query=`
 
 function DiscoverBooksScreen() {
-    // 🐨 add state for status ('idle', 'loading', or 'success'), data, and query
-    // const [status, setStatus] = React.useState('idle')
-    // const [data, setData] = React.useState(null)
-    // const [query, setQuery] = React.useState('')
-    /*keeping all of them in one object for better karma:*/
     const [state, setState] = React.useState({
         status: 'idle',
         query: '',
-        data: {
-            "books": [
-                {
-                    "title": "Voice of War",
-                    "author": "Zack Argyle",
-                    "coverImageUrl": "https://images-na.ssl-images-amazon.com/images/I/41JodZ5Vl%2BL.jpg",
-                    "id": "B084F96GFZ",
-                    "pageCount": 372,
-                    "publisher": "Self Published",
-                    "synopsis": "..."
-                }
-            ]
-        },
+        data: null,
     })
     const {status, query, data} = state
 
     const [queried, setQueried] = React.useState(false)
 
-    // 🐨 Add a useEffect callback here for making the request with the
-    // client and updating the status and data.
-    // 💰 Here's the endpoint you'll call: `books?query=${encodeURIComponent(query)}`
-    // 🐨 remember, effect callbacks are called on the initial render too
-    // so you'll want to check if the user has submitted the form yet and if
-    // they haven't then return early (💰 this is what the queried state is for).
     React.useEffect(() => {
         if (queried) {
             setQueried(false)
             console.log('query changed, will make the API call here...', state)
+            client(endpoint + query).then(data => {
+                setState({...state, status: 'success', data: data})
+            })
         } else {
             console.log('queried is false so will do nothing')
         }
