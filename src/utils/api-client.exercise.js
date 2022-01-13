@@ -8,9 +8,14 @@ function client(query, customConfig = {}) {
         ...customConfig,
     }
     return fetch(endpoint + encodeURIComponent(query), config)
-        .then(response => {
-            return response.json()
-        });
+        .then(async response => {
+            const data = await response.json()
+            if(response.ok) {
+                return data
+            } else {
+                return Promise.reject(data)
+            }
+        })
 }
 
 export {client}

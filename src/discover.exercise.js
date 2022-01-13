@@ -3,17 +3,19 @@ import {jsx} from '@emotion/core'
 
 import './bootstrap'
 import Tooltip from '@reach/tooltip'
-import {FaSearch} from 'react-icons/fa'
+import {FaTimes, FaSearch} from 'react-icons/fa'
 import {Input, BookListUL, Spinner} from './components/lib'
 import {BookRow} from './components/book-row'
 import * as React from 'react'
 import {client} from './utils/api-client'
+import * as colors from './styles/colors'
 
 function DiscoverBooksScreen() {
     const [state, setState] = React.useState({
         status: 'idle',
         query: '',
         data: null,
+        error: null,
     })
     const {status, query, data} = state
 
@@ -26,12 +28,17 @@ function DiscoverBooksScreen() {
         setState({...state, status: 'loading'})
         setQueried(false)
         client(query).then(data => {
+            // console.log('DHR', data)
             setState({...state, status: 'success', data: data})
+        }, errorData => {
+            console.log('DHR ERROR DATA::: ', errorData)
+            setState({...state, status: 'error', error: errorData})
         })
     }, [queried, query])
 
     const isLoading = status === 'loading'
     const isSuccess = status === 'success'
+    const isError = status === 'error'
 
     function handleSearchSubmit(event) {
         event.preventDefault()
@@ -60,11 +67,15 @@ function DiscoverBooksScreen() {
                                 background: 'transparent',
                             }}
                         >
-                            {isLoading ? <Spinner/> : <FaSearch aria-label="search"/>}
+                            {isLoading ? <Spinner/> :
+                                isError ? <FaTimes aria-label="error" css={{color: colors.danger}}/> :
+                                    <FaSearch aria-label="search"/>}
                         </button>
                     </label>
                 </Tooltip>
             </form>
+
+            {isError ? <div css={{color: colors.danger}}>ERROR HAPPENED</div> : null}
 
             {isSuccess ? (
                 data?.books?.length ? (
@@ -76,7 +87,9 @@ function DiscoverBooksScreen() {
                         ))}
                     </BookListUL>
                 ) : (
-                    <p>No books found. Try another search.</p>
+
+                    <p>No books found. Try another search./>
+                    </p>
                 )
             ) : null}
         </div>
