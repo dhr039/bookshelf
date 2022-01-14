@@ -17,7 +17,7 @@ function DiscoverBooksScreen() {
         data: null,
         error: null,
     })
-    const {status, query, data} = state
+    const {status, query, data, error} = state
 
     const [queried, setQueried] = React.useState(false)
 
@@ -75,7 +75,14 @@ function DiscoverBooksScreen() {
                 </Tooltip>
             </form>
 
-            {isError ? <div css={{color: colors.danger}}>ERROR HAPPENED</div> : null}
+            {
+                isError ? (
+                    <div css={{color: colors.danger}}>
+                        <p>There was an error:</p>
+                        <pre>{error.message}</pre>
+                    </div>
+                ) : null
+            }
 
             {isSuccess ? (
                 data?.books?.length ? (
