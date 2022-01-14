@@ -9,41 +9,29 @@ import {BookRow} from './components/book-row'
 import * as React from 'react'
 import {client} from './utils/api-client'
 import * as colors from './styles/colors'
+import {useAsync} from 'utils/hooks'
 
 function DiscoverBooksScreen() {
-    const [state, setState] = React.useState({
-        status: 'idle',
-        query: '',
-        data: null,
-        error: null,
-    })
-    const {status, query, data, error} = state
-
+    const {data, error, run, isLoading, isError, isSuccess} = useAsync()
+    const [query, setQuery] = React.useState()
     const [queried, setQueried] = React.useState(false)
 
+    /* it seems that we need 'query', 'queried' and this useEffect
+    * only because we have to keep up with the run() function (which is memoized so there are no unnecessary calls)
+    * Otherwise I would just make the call from within handleSearchSubmit(event) and get rid of
+    * two extra variables and one extra useEffect to maintain.
+    * */
     React.useEffect(() => {
         if (!queried) {
             return
         }
-        setState({...state, status: 'loading'})
-        setQueried(false)
-        client(query).then(data => {
-            // console.log('DHR', data)
-            setState({...state, status: 'success', data: data})
-        }, errorData => {
-            console.log('DHR ERROR DATA::: ', errorData)
-            setState({...state, status: 'error', error: errorData})
-        })
-    }, [queried, query])
-
-    const isLoading = status === 'loading'
-    const isSuccess = status === 'success'
-    const isError = status === 'error'
+        run(client(query))
+    }, [query, queried, run])
 
     function handleSearchSubmit(event) {
         event.preventDefault()
         setQueried(true)
-        setState({...state, query: event.target.elements.search.value})
+        setQuery(event.target.elements.search.value)
     }
 
     return (
